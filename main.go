@@ -10,7 +10,8 @@ import (
 func TestSomething(driver *agouti.WebDriver, done chan bool) {
 	var username, password string
 	var d int
-	page, err := driver.NewPage()
+
+	page, err := agouti.NewPage("http://192.168.33.1:8075")
 	if err != nil {
 		log.Fatal("Failed to create new page:", err)
 	}
@@ -39,8 +40,9 @@ func NewChromeDriver() (*agouti.WebDriver, error) {
 
 func main() {
 	ch := make(chan bool)
-	driver, _ := NewChromeDriver()
-	TestSomething(driver, ch)
-	driver.Stop()
+	//driver := agouti.NewWebDriver("http://127.0.0.1:8075", []string{"ls"}, agouti.Timeout(600))
+	//log.Fatal(driver.Start())
+	TestSomething(nil, ch)
+	//driver.Stop()
 	fmt.Println("Done")
 }
